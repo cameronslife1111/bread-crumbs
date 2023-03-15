@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bread Crumbs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+        }
+        h1 {
+            text-align: center;
+        }
+        .text-box {
+            width: 100%;
+            max-width: 500px;
+            height: 30px;
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .button-container button {
+            margin: 0 10px;
+            font-size: 16px;
+            padding: 10px 20px;
+        }
+        .text-box-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 500px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bread Crumbs</h1>
+    <div class="button-container">
+        <button onclick="startSpeaking()">Start Speaking</button>
+        <button onclick="stopSpeaking()">Stop Speaking</button>
+        <button onclick="shiftList()">Shift List</button>
+    </div>
+    <div class="text-box-container">
+        <input type="text" class="text-box" id="text1" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text2" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text3" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text4" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text5" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text6" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text7" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text8" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text9" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text10" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text11" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text12" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text13" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text14" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text15" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text16" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text17" maxlength="200" placeholder="Type something...">
+                <input type="text" class="text-box" id="text18" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text19" maxlength="200" placeholder="Type something...">
+        <input type="text" class="text-box" id="text20" maxlength="200" placeholder="Type something...">
+    </div>
+    <script>
+        let msg = null;
+        let repeatIntervalId = null;
+        let textBoxes = null;
+        let currentIndex = 0;
+
+        function startSpeaking() {
+            if (msg) {
+                window.speechSynthesis.cancel(msg);
+            }
+
+            textBoxes = document.querySelectorAll('.text-box');
+            currentIndex = 0;
+
+            speakFirstTextBox();
+
+            // Start the repeat interval after 11 seconds
+            repeatIntervalId = setInterval(speakFirstTextBox, 11000);
+        }
+
+        function speakFirstTextBox() {
+            const text = textBoxes[0].value;
+            msg = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(msg);
+
+            msg.onend = function() {
+                // Do nothing
+            };
+        }
+
+        function speakNextTextBox() {
+            if (currentIndex >= textBoxes.length) {
+                currentIndex = 0;
+            }
+
+            const text = textBoxes[currentIndex].value;
+            msg = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(msg);
+
+            msg.onend = function() {
+                currentIndex++;
+
+                if (currentIndex >= textBoxes.length) {
+                    repeatIntervalId = setTimeout(startSpeaking, 11000);
+                } else {
+                    setTimeout(speakNextTextBox, 1000);
+                }
+            };
+        }
+
+        function stopSpeaking() {
+            window.speechSynthesis.cancel(msg);
+            clearInterval(repeatIntervalId);
+            repeatIntervalId = null;
+            currentIndex = 0;
+        }
+
+        function shiftList() {
+            const text2 = document.getElementById('text2').value;
+            const text3 = document.getElementById('text3').value;
+            const text4 = document.getElementById('text4').value;
+            const text5 = document.getElementById('text5').value;
+            const text6 = document.getElementById('text6').value;
+            const text7 = document.getElementById('text7').value;
+            const text8 = document.getElementById('text8').value;
+            const text9 = document.getElementById('text9').value;
+            const text10 = document.getElementById('text10').value;
+            const text11 = document.getElementById('text11').value;
+            const text12 = document.getElementById('text12').value;
+            const text13 = document.getElementById('text13').value;
+            const text14 = document.getElementById('text14').value;
+            const text15 = document.getElementById('text15').value;
+            const text16 = document.getElementById('text16').value;
+            const text17 = document.getElementById('text17').value;
+            const text18 = document.getElementById('text18').value;
+            const text19 = document.getElementById('text19').value;
+            const text20 = document.getElementById('text20').value;
+
+            document.getElementById('text1').value = text2;
+            document.getElementById('text2').value = text3;
+            document.getElementById('text3').value = text4;
+            document.getElementById('text4').value = text5;
+            document.getElementById('text5').value = text6;
+            document.getElementById('text6').value = text7;
+            document.getElementById('text7').value = text8;
+                        document.getElementById('text8').value = text9;
+            document.getElementById('text9').value = text10;
+            document.getElementById('text10').value = text11;
+            document.getElementById('text11').value = text12;
+            document.getElementById('text12').value = text13;
+            document.getElementById('text13').value = text14;
+            document.getElementById('text14').value = text15;
+            document.getElementById('text15').value = text16;
+            document.getElementById('text16').value = text17;
+            document.getElementById('text17').value = text18;
+            document.getElementById('text18').value = text19;
+            document.getElementById('text19').value = text20;
+            document.getElementById('text20').value = '';
+        }
+    </script>
+</body>
+</html>
